@@ -1,0 +1,33 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "shell",
+			"label": "C/C++: g++.exe build active file",
+			"command": "g++.exe",
+			"args": [
+				"-g",
+				"${workspaceFolder}\\src\\main.cpp",
+				
+				"-Iinclude",
+				"-Llib",
+				"-lmingw32",
+				"-lSDL2main",
+				"-lSDL2",
+				
+				"-o",
+				"${workspaceFolder}\\bin\\main.exe",
+			],
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
+		}
+	]
+}
