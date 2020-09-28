@@ -8,18 +8,19 @@
 
 class Vector2
 {
-public:
     int x;
     int y;
     Color color;
 
+public:
     Vector2()
     {
-        Vector2(0,0,Color(255,255,255));
+        Vector2(0, 0, Color(255, 255, 255));
     }
 
-    Vector2(int _x, int _y) {
-        Vector2(_x,_y,Color(255,255,255));
+    Vector2(int _x, int _y)
+    {
+        Vector2(_x, _y, Color(255, 255, 255));
     }
 
     Vector2(int _x, int _y, Color _color)
@@ -28,7 +29,7 @@ public:
         y = _y;
         color = _color;
     }
-    
+
     void Init(int _x, int _y, Color _color)
     {
         x = _x;
@@ -36,7 +37,8 @@ public:
         color = _color;
     }
 
-    void setColor(Color _color) {
+    void setColor(Color _color)
+    {
         color = _color;
     }
 
@@ -46,8 +48,7 @@ public:
             printf("Enter x and y: "),
             fflush(stdin),
             2 != scanf("%d%d", &x, &y) &&
-            printf("[!] You have entered incorrect data, please try again.\n")
-        );
+            printf("[!] You have entered incorrect data, please try again.\n"));
         fflush(stdin);
     }
 
@@ -59,6 +60,14 @@ public:
     void Display()
     {
         printf("<Vector2 (x:%d, y:%d), Length: %lf>\n", x, y, Length());
+    }
+
+    void Draw(SDL_Renderer *renderer)
+    {
+        SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, 255);
+        SDL_RenderDrawLine(renderer, 250, 250, 250 + x * 25, 250 + y * -25);
+
+        SDL_RenderPresent(renderer);
     }
 
     double Scalar(Vector2 otherVector)
@@ -79,7 +88,6 @@ public:
         newVector.y = y + otherVector.y;
         return newVector;
     }
-
 };
 
 #endif

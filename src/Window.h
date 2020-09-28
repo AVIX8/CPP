@@ -11,7 +11,8 @@ public:
 	SDL_Window *window;
 	SDL_Renderer *renderer;
 
-	Window(const char * title) {
+	Window(const char *title)
+	{
 		if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
 		{
 			printf("SDL_Error: %s\n", SDL_GetError());
@@ -40,14 +41,6 @@ public:
 		SDL_SetRenderDrawColor(renderer, 192, 192, 192, 255);
 		SDL_RenderDrawLine(renderer, 250, 0, 250, 500);
 		SDL_RenderDrawLine(renderer, 0, 250, 500, 250);
-
-		SDL_RenderPresent(renderer);
-	}
-
-	void Draw(Vector2 *vector)
-	{
-		SDL_SetRenderDrawColor(renderer, vector->color.r, vector->color.g, vector->color.b, 255);
-		SDL_RenderDrawLine(renderer, 250, 250, 250 + vector->x * 25, 250 + vector->y * -25);
 
 		SDL_RenderPresent(renderer);
 	}

@@ -19,7 +19,7 @@ int Script(void *data)
     //4) В main продемонстрировать работу со статическими объектами вашего класса;
     printf("4) В main продемонстрировать работу со статическими объектами вашего класса;\n");
     Vector2 red(5, 4, Color(255, 0, 0));
-    window->Draw(&red);
+    red.Draw(window->renderer);
 
     system("pause");
     system("cls");
@@ -28,7 +28,7 @@ int Script(void *data)
     //5) В main продемонстрировать работу с динамическими объектами вашего класса;
     printf("5) В main продемонстрировать работу с динамическими объектами вашего класса;\n");
     Vector2 *green = new Vector2(-2, 2, Color(0, 255, 0));
-    window->Draw(green);
+    green->Draw(window->renderer);
 
     system("pause");
     system("cls");
@@ -47,7 +47,7 @@ int Script(void *data)
 
     for (int i = 0; i < n; i++)
     {
-        window->Draw(ptr + i);
+        (ptr + i)->Draw(window->renderer);
         (ptr + i)->Display();
     }
 
@@ -68,7 +68,7 @@ int Script(void *data)
 
     for (int i = 0; i < k; i++)
     {
-        window->Draw(arr[i]);
+        arr[i]->Draw(window->renderer);
         arr[i]->Display();
     }
 
@@ -79,11 +79,11 @@ int Script(void *data)
 
     //7) Продемострировать применение операторов ✅new, ✅delete, ✅delete[];
     //8) Продемострировать применение функций calloc, ✅malloc, realloc, ✅free;
-    printf("8) Продемострировать применение функций calloc, ✅malloc, realloc, ✅free;\n");
+    printf("8) Продемострировать применение функций calloc, malloc, realloc, free;\n");
     Vector2 *callocated = (Vector2 *)calloc(10, sizeof(Vector2));
     callocated[7].Init(1, 2, Color(255, 255, 255));
     Vector2 *reallocated = (Vector2 *)realloc(callocated, 10 * sizeof(Vector2));
-    window->Draw(&reallocated[7]);
+    reallocated[7].Draw(window->renderer);
 
     system("pause");
     system("cls");
@@ -100,14 +100,14 @@ int Script(void *data)
         v1.setColor(Color(0, 255, 0));
         printf("v1 = ");
         v1.Display();
-        window->Draw(&v1);
+        v1.Draw(window->renderer);
 
         Vector2 v2;
         v2.Read();
         v2.setColor(Color(0, 255, 0));
         printf("v2 = ");
         v2.Display();
-        window->Draw(&v2);
+        v2.Draw(window->renderer);
 
         printf("Angle between v1 and v2: %f\n", v1.Angle(v2));
 
@@ -115,7 +115,7 @@ int Script(void *data)
         printf("v1 + v2 = ");
         sum.Display();
         sum.setColor(Color(255, 0, 0));
-        window->Draw(&sum);
+        sum.Draw(window->renderer);
 
         printf("\n");
         system("pause");

@@ -1,6 +1,7 @@
 ## Задача
 
-### Сделать класс похожий на [Vector2](https://docs.microsoft.com/ru-ru/dotnet/api/system.numerics.vector2)
+### Сделать структуру похожую на [Vector2](https://docs.microsoft.com/ru-ru/dotnet/api/system.numerics.vector2),
+### Реализовать функции для: вычисления суммы векторов, нахождения длины вектора, угла между векторами, скалярного произведения векторов.
 
 <br />
 
