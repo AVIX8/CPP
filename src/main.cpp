@@ -2,94 +2,51 @@
 #include <malloc.h>
 #include <stdlib.h>
 #include <ctime>
-#include <Windows.h>
 
 #include "SDL2/SDL.h"
-#include "Window.h"
+
 #include "Vector2.h"
 #include "Color.h"
+#include "Window.h"
 
 int Script(void *data)
 {
-    SetConsoleOutputCP(65001);
     Window *window = (Window *)data;
     window->Clear();
     srand((unsigned)time(0));
 
-    //4) В main продемонстрировать работу со статическими объектами вашего класса;
-    printf("4) В main продемонстрировать работу со статическими объектами вашего класса;\n");
-    Vector2 red(5, 4, Color(255, 0, 0));
-    red.Draw(window->renderer);
+    printf("1) �த�������஢��� ������ ���祭�� �� ��⮤� �१ 㪠��⥫� (*) � �१ ��뫪� (&);\n");
+    printf("2) �த�������஢��� ࠧ㬭�� �ᯮ�짮����� this;\n");
+    Vector2 vector(5, 4, new Color(255, 0, 0));
+    printf("vector = ");
+    vector.Display();
+
+    Color* red = vector.GetColor();
+    red->Display();
+    
+    vector.Add(vector).Add(vector).Add(vector); // <=> vector *= 8
+    printf("vector * 8 = ");
+    vector.Display();
 
     system("pause");
     system("cls");
     window->Clear();
 
-    //5) В main продемонстрировать работу с динамическими объектами вашего класса;
-    printf("5) В main продемонстрировать работу с динамическими объектами вашего класса;\n");
-    Vector2 *green = new Vector2(-2, 2, Color(0, 255, 0));
-    green->Draw(window->renderer);
+    printf("3) ������� ��㦥�⢥���� �㭪�� � �த�������஢��� �� �ᯮ�짮�����;\n");
+    // Vector2 vector(5, 4, Color(255, 0, 0));
+    // printf("vector = ");
+    // vector.Display();
 
-    system("pause");
-    system("cls");
-    window->Clear();
-    delete green;
+    // Color* red = vector.GetColor();
+    // red->Display();
+    
+    // vector.Add(vector).Add(vector).Add(vector); // <=> vector *= 8
+    // printf("vector * 8 = ");
+    // vector.Display();
 
-    //6.1) В main продемонстрировать работу с динамическим массивом объектов вашего класса;
-    printf("6.1) В main продемонстрировать работу с динамическим массивом объектов вашего класса;\n");
-    int n = 10;
-    Vector2 *ptr = (Vector2 *)malloc(sizeof(Vector2) * n);
-    for (int i = 0; i < n; i++)
-        *(ptr + i) = Vector2(
-            rand() % 20 - 10,
-            rand() % 20 - 10,
-            Color(rand() % 255, rand() % 255, rand() % 255));
-
-    for (int i = 0; i < n; i++)
-    {
-        (ptr + i)->Draw(window->renderer);
-        (ptr + i)->Display();
-    }
-
-    system("pause");
-    system("cls");
-    window->Clear();
-    free(ptr);
-
-    //6.2) В main продемонстрировать работу с массивом динамических объектов вашего класса;
-    printf("6.2) В main продемонстрировать работу с массивом динамических объектов вашего класса;\n");
-    int k = 10;
-    Vector2 **arr = new Vector2 *[k];
-    for (int i = 0; i < k; i++)
-        arr[i] = new Vector2(
-            rand() % 20 - 10,
-            rand() % 20 - 10,
-            Color(rand() % 255, rand() % 255, rand() % 255));
-
-    for (int i = 0; i < k; i++)
-    {
-        arr[i]->Draw(window->renderer);
-        arr[i]->Display();
-    }
-
-    system("pause");
-    system("cls");
-    window->Clear();
-    delete[] arr;
-
-    //7) Продемострировать применение операторов ✅new, ✅delete, ✅delete[];
-    //8) Продемострировать применение функций calloc, ✅malloc, realloc, ✅free;
-    printf("8) Продемострировать применение функций calloc, malloc, realloc, free;\n");
-    Vector2 *callocated = (Vector2 *)calloc(10, sizeof(Vector2));
-    callocated[7].Init(1, 2, Color(255, 255, 255));
-    Vector2 *reallocated = (Vector2 *)realloc(callocated, 10 * sizeof(Vector2));
-    reallocated[7].Draw(window->renderer);
-
-    system("pause");
-    system("cls");
-    window->Clear();
-    free(callocated);
-    free(reallocated);
+    // system("pause");
+    // system("cls");
+    // window->Clear();
 
     while (1)
     {
@@ -97,14 +54,14 @@ int Script(void *data)
 
         Vector2 v1;
         v1.Read();
-        v1.setColor(Color(0, 255, 0));
+        v1.setColor(new Color(0, 255, 0));
         printf("v1 = ");
         v1.Display();
         v1.Draw(window->renderer);
 
         Vector2 v2;
         v2.Read();
-        v2.setColor(Color(0, 255, 0));
+        v2.setColor(new Color(0, 255, 0));
         printf("v2 = ");
         v2.Display();
         v2.Draw(window->renderer);
@@ -114,7 +71,7 @@ int Script(void *data)
         Vector2 sum = v1 + v2;
         printf("v1 + v2 = ");
         sum.Display();
-        sum.setColor(Color(255, 0, 0));
+        sum.setColor(new Color(255, 0, 0));
         sum.Draw(window->renderer);
 
         printf("\n");

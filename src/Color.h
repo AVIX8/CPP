@@ -1,26 +1,22 @@
 #ifndef COLOR_h_
 #define COLOR_h_
 
+#include "Vector2.h"
+#include "Window.h"
+
 class Color
 {
-public:
+private:
     int r;
     int g;
     int b;
 
-    Color()
-    {
-        r = 255;
-        g = 255;
-        b = 255;
-    }
+public:
+    Color();
+    Color(int _r, int _g, int _b);
+    void Display();
 
-    Color(int _r, int _g, int _b)
-    {
-        r = _r;
-        g = _g;
-        b = _b;
-    };
+    friend void Vector2::Draw(SDL_Renderer *);
 };
 
 #endif
