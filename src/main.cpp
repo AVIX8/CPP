@@ -2,6 +2,8 @@
 #include <malloc.h>
 #include <stdlib.h>
 #include <ctime>
+#include <string.h>
+#include <algorithm>
 
 #include "SDL2/SDL.h"
 
@@ -17,36 +19,69 @@ int Script(void *data)
 
     printf("1) Продемонстрировать возврат значения из метода через указатель (*) и через ссылку (&);\n");
     printf("2) Продемонстрировать разумное использование this;\n");
-    Vector2 vector(5, 4, new Color(255, 0, 0));
-    printf("vector = ");
-    vector.Display();
+    Vector2 vec1(2, 3, new Color(255, 0, 0));
+    printf("vec1 = ");
+    vec1.Display();
 
-    Color* red = vector.GetColor();
+    Color* red = vec1.GetColor();
     red->Display();
     
-    vector.Add(vector).Add(vector).Add(vector); // <=> vector *= 8
-    printf("vector * 8 = ");
-    vector.Display();
+    vec1.Add(vec1).Add(vec1); // <=> vec1 *= 4
+    printf("vec1 * 8 = ");
+    vec1.Display();
 
     system("pause");
     system("cls");
     window->Clear();
 
     printf("3) Создать дружественную функцию и продемонстрировать ее использование;\n");
-    // Vector2 vector(5, 4, Color(255, 0, 0));
-    // printf("vector = ");
-    // vector.Display();
+    vec1.Draw(window->renderer);
 
-    // Color* red = vector.GetColor();
-    // red->Display();
+    system("pause");
+    system("cls");
+    window->Clear();
+
+    printf("4) Выполнить перегрузку операторов '+', '++' (два варианта, префиксный и постфиксный). Продемонстрировать в main;\n");
+    Vector2 vec2(1,2, red);
+
+    printf("vec1 = ");
+    vec1.Display();
+    printf("vec2 = ");
+    vec2.Display();
+
+    printf("\n[vec1 + vec2] = ");
+    (vec1+vec2).Display(); 
+
+    printf("\n[vec1 + vec2++] = ");
+    (vec1+vec2++).Display(); 
     
-    // vector.Add(vector).Add(vector).Add(vector); // <=> vector *= 8
-    // printf("vector * 8 = ");
-    // vector.Display();
+    printf("\nvec1 = ");
+    vec1.Display();
+    printf("vec2 = ");
+    vec2.Display();
 
-    // system("pause");
-    // system("cls");
-    // window->Clear();
+    printf("\n[vec1 + ++vec2] = ");
+    (vec1+ ++vec2).Display(); 
+
+    printf("\nvec1 = ");
+    vec1.Display();
+    printf("vec2 = ");
+    vec2.Display();
+
+
+    system("pause");
+    system("cls");
+    window->Clear();
+
+    std::string str = "5) Заменить массивы char на std::string, продемонстрировать работу с этим классом;\n";
+    printf(str.c_str());
+
+    std::sort(str.begin(), str.end()-1);
+    std::cout << "sorted: " << str;
+
+    system("pause");
+    system("cls");
+    window->Clear();
 
     while (1)
     {
@@ -82,7 +117,7 @@ int Script(void *data)
 
 int main(int argc, char *argv[])
 {
-    Window *window = new Window("DA");
+    Window *window = new Window("de great prog eve");
     SDL_Thread *thread = SDL_CreateThread(Script, "Script", (void *)window);
 
     SDL_Event event;

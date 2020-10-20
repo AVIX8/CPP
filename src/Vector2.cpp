@@ -80,19 +80,19 @@ Vector2 Vector2::operator+(Vector2 otherVector)
     return newVector;
 }
 
-Vector2 Vector2::operator++(int)
-{
-    x++;
-    y++;
-    return *this;
-}
-
 Vector2 &Vector2::operator++()
 {
     double len = Length();
     x+=x/len;
     y+=y/len;
     return *this;
+}
+
+Vector2 Vector2::operator++(int)
+{
+    Vector2 temp = *this;
+    ++*this;
+    return temp;
 }
 
 Vector2 &Vector2::Add(Vector2 otherVector)

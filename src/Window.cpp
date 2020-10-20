@@ -1,17 +1,17 @@
 #include "Window.h"
-
-#include <stdio.h>
+#include <algorithm>
+#include <string.h>
 
 #include "SDL2/SDL.h"
-#include "Vector2.h"
 
-Window::Window(const char *title)
+Window::Window(std::string title)
 {
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
     {
         printf("SDL_Error: %s\n", SDL_GetError());
     }
-    window = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, 25, 501, 501, 0);
+    std::transform(title.begin(), title.end(), title.begin(), ::toupper);
+    window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED, 25, 501, 501, 0);
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 }
 

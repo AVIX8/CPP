@@ -29,8 +29,12 @@ public:
     double Angle(Vector2 otherVector);
 
     Vector2 operator+(Vector2 otherVector);
+
+    //увеличивает длину вектора на 1 (postfix)
     Vector2 operator++(int);
+    //увеличивает длину вектора на 1 (prefix)
     Vector2& operator++();
+
     Vector2 &Add(Vector2 otherVector);
 
     void Draw(SDL_Renderer *renderer);
