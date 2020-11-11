@@ -61,14 +61,14 @@ void Vector2::Display()
     printf("<Vector2 (x:%lf, y:%lf), Length: %lf>\n", x, y, Length());
 }
 
-double Vector2::Scalar(Vector2 otherVector)
+double Vector2::Scalar(Vector2 v1, Vector2 v2)
 {
-    return x * otherVector.x + y * otherVector.y;
+    return v1.x * v2.x + v1.y * v2.y;
 }
 
-double Vector2::Angle(Vector2 otherVector)
+double Vector2::Angle(Vector2 v1, Vector2 v2)
 {
-    double ang = acos(Scalar(otherVector) / Length() / otherVector.Length()) / M_PI * 180;
+    double ang = acos(Scalar(v1, v2) / v1.Length() / v2.Length()) / M_PI * 180;
     return fmin(ang, 360 - ang);
 }
 
@@ -83,8 +83,8 @@ Vector2 Vector2::operator+(Vector2 otherVector)
 Vector2 &Vector2::operator++()
 {
     double len = Length();
-    x+=x/len;
-    y+=y/len;
+    x += x / len;
+    y += y / len;
     return *this;
 }
 
@@ -105,7 +105,7 @@ Vector2 &Vector2::Add(Vector2 otherVector)
 void Vector2::Draw(SDL_Renderer *renderer)
 {
     SDL_SetRenderDrawColor(renderer, color->r, color->g, color->b, 255);
-    SDL_RenderDrawLine(renderer, 250, 250, (int)(250 + x * 25),(int)(250 + y * -25));
+    SDL_RenderDrawLine(renderer, 250, 250, (int)(250 + x * 25), (int)(250 + y * -25));
 
     SDL_RenderPresent(renderer);
 }
