@@ -10,13 +10,16 @@ class Vector2
 private:
     double x;
     double y;
-    Color *color;
+    
 
 public:
+    Color *color;
     Vector2();
     Vector2(double _x, double _y);
     Vector2(double _x, double _y, Color *_color);
-    void Init(double _x, double _y, Color *_color);
+
+    Vector2(const Vector2 &v);
+    Vector2& operator= (const Vector2 &v);
 
     Color *GetColor();
     void setColor(Color *_color);

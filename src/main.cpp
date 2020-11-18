@@ -11,77 +11,66 @@
 #include "Color.h"
 #include "Window.h"
 
+void clear(Window*window){
+    system("pause");
+    system("cls");
+    window->Clear();
+}
+
 int Script(void *data)
 {
     Window *window = (Window *)data;
     window->Clear();
     srand((unsigned)time(0));
 
-    printf("1) Продемонстрировать возврат значения из метода через указатель (*) и через ссылку (&);\n");
-    printf("2) Продемонстрировать разумное использование this;\n");
-    Vector2 vec1(2, 3, &Color::red);
-    printf("vec1 = ");
-    vec1.Display();
+    printf("2) Продемонстрировать вызов всех конструкторов статическими и динамическими объектами\n");
 
-    Color *red = vec1.GetColor();
-    red->Display();
+    Vector2 s0 = Vector2();
+    Vector2 s2 = Vector2(1,2);
+    Vector2 s3 = Vector2(1,2, &Color::red);
+    s3.Display();
+    s3.Draw(window->renderer);
 
-    vec1.Add(vec1).Add(vec1); // <=> vec1 *= 4
-    printf("vec1 * 8 = ");
-    vec1.Display();
+    Vector2* d0 = new Vector2();
+    Vector2* d2 = new Vector2(-1,-2);
+    Vector2* d3 = new Vector2(-1,-2, &Color::green);
+    d3->Display();
+    d3->Draw(window->renderer);
 
-    system("pause");
-    system("cls");
-    window->Clear();
+    clear(window);
+    printf("3) Инициализировать небольшой массив конструктором с одним параметром;\n");
+    
+    Vector2 arr[6] = {s0, s2, s3, *d0, *d2, *d3};
+    for (size_t i = 0; i < 6; i++)
+    {
+        arr[i].Display();
+        arr[i].Draw(window->renderer);
+    }
 
-    printf("3) Создать дружественную функцию и продемонстрировать ее использование;\n");
-    vec1.Draw(window->renderer);
+    clear(window);
+    printf("4.1) Cоздать конструктор копии и перегрузку оператора присваивания.\n");
 
-    system("pause");
-    system("cls");
-    window->Clear();
+    Vector2 a(2,7);
 
-    printf("4) Выполнить перегрузку операторов '+', '++' (два варианта, префиксный и постфиксный). Продемонстрировать в main;\n");
-    Vector2 vec2(1, 2, red);
+    Vector2 b(a); // копирование
+    b.Display();
+    
+    Vector2 c;
+    c = a; // присваивание
+    c.Display();
 
-    printf("vec1 = ");
-    vec1.Display();
-    printf("vec2 = ");
-    vec2.Display();
+    clear(window);
+    printf("4.2) Продемонстрировать различие между мелким и глубоким копированием;\n");
+    
+    // a.color: <Color r:255, g:255, b:255>
+    Vector2 dc(a); 
+    a.color->set(255,0,0);
+    dc.color->Display();
 
-    printf("\n[vec1 + vec2] = ");
-    (vec1 + vec2).Display();
+    // при мелком копировании: "<Color r:255, g:0, b:0>"
+    // при глубоком копировании: "<Color r:255, g:255, b:255>"
 
-    printf("\n[vec1 + vec2++] = ");
-    (vec1 + vec2++).Display();
-
-    printf("\nvec1 = ");
-    vec1.Display();
-    printf("vec2 = ");
-    vec2.Display();
-
-    printf("\n[vec1 + ++vec2] = ");
-    (vec1 + ++vec2).Display();
-
-    printf("\nvec1 = ");
-    vec1.Display();
-    printf("vec2 = ");
-    vec2.Display();
-
-    system("pause");
-    system("cls");
-    window->Clear();
-
-    std::string str = "5) Заменить массивы char на std::string, продемонстрировать работу с этим классом;\n";
-    printf(str.c_str());
-
-    std::sort(str.begin(), str.end() - 1);
-    std::cout << "sorted: " << str;
-
-    system("pause");
-    system("cls");
-    window->Clear();
-
+    clear(window);
     while (1)
     {
         window->Clear();
@@ -108,15 +97,13 @@ int Script(void *data)
         sum.setColor(&Color::red);
         sum.Draw(window->renderer);
 
-        printf("\n");
-        system("pause");
-        system("cls");
+        clear(window);
     }
 }
 
 int main(int argc, char *argv[])
 {
-    Window *window = new Window("de great prog eve");
+    Window *window = new Window("");
     SDL_Thread *thread = SDL_CreateThread(Script, "Script", (void *)window);
 
     SDL_Event event;

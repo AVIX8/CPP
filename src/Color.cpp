@@ -21,6 +21,12 @@ Color::Color(int _r, int _g, int _b)
     b = _b;
 };
 
+void Color::set(int _r, int _g, int _b){
+    r = _r;
+    g = _g;
+    b = _b;
+}
+
 void Color::Display()
 {
     printf("<Color r:%d, g:%d, b:%d>\n", r, g, b);

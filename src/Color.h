@@ -14,6 +14,7 @@ private:
 public:
     Color();
     Color(int _r, int _g, int _b);
+    void set(int _r, int _g, int _b);
     void Display();
 
     static Color red;

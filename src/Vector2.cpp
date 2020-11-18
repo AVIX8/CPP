@@ -6,15 +6,9 @@
 #include "Color.h"
 #include "Window.h"
 
-Vector2::Vector2()
-{
-    Vector2(0, 0, new Color(255, 255, 255));
-}
+Vector2::Vector2() : Vector2(0, 0, new Color(255, 255, 255)) {}
 
-Vector2::Vector2(double _x, double _y)
-{
-    Vector2(_x, _y, new Color(255, 255, 255));
-}
+Vector2::Vector2(double _x, double _y) : Vector2(_x, _y, new Color(255, 255, 255)) {}
 
 Vector2::Vector2(double _x, double _y, Color *_color)
 {
@@ -23,11 +17,25 @@ Vector2::Vector2(double _x, double _y, Color *_color)
     color = _color;
 }
 
-void Vector2::Init(double _x, double _y, Color *_color)
+// конструктор копирования
+Vector2::Vector2(const Vector2 &v)
 {
-    x = _x;
-    y = _y;
-    color = _color;
+    printf("[Copy constructor]\n");
+    x = v.x;
+    y = v.y;
+    // color = v.color; //мелкое копирование
+    color = new Color(*v.color); // глубокое копирование
+    
+}
+
+// Перегрузка оператора присваивания
+Vector2 &Vector2::operator=(const Vector2 &v)
+{
+    printf("[Assignment operator]\n");
+    x = v.x;
+    y = v.y;
+    color = v.color;
+    return *this;
 }
 
 Color *Vector2::GetColor()
