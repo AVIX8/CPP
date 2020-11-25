@@ -89,7 +89,7 @@ int Script(void *data)
         v2.Display();
         v2.Draw(window->renderer);
 
-        printf("Angle between v1 and v2 = %f degrees\n ", Vector2::Angle(v1, v2));
+        printf("Angle between v1 and v2 = %f degrees\n", Vector2::Angle(v1, v2));
 
         Vector2 sum = v1 + v2;
         printf("v1 + v2 = ");
