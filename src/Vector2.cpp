@@ -25,7 +25,6 @@ Vector2::Vector2(const Vector2 &v)
     y = v.y;
     // color = v.color; //мелкое копирование
     color = new Color(*v.color); // глубокое копирование
-    
 }
 
 // Перегрузка оператора присваивания
@@ -50,13 +49,25 @@ void Vector2::setColor(Color *_color)
 
 void Vector2::Read()
 {
-    while (
-        printf("Enter x and y: "),
-        fflush(stdin),
-        2 != scanf("%lf%lf", &x, &y) &&
-            printf("[!] You have entered incorrect data, please try again.\n"))
-        ;
-    fflush(stdin);
+    while (true)
+    {
+        std::cout << "Enter x and y: ";
+        try
+        {
+            std::cin >> x >> y;
+            if (std::cin.fail())
+            {
+                std::cin.clear();
+                std::cin.ignore(INT32_MAX, '\n');
+                throw std::runtime_error("Invalid input.");
+            }
+            break;
+        }
+        catch (const std::exception &e)
+        {
+            std::cout << "[!] You have entered incorrect data, please try again.\n";
+        }
+    }
 }
 
 double Vector2::Length()
@@ -76,6 +87,7 @@ double Vector2::Scalar(Vector2 v1, Vector2 v2)
 
 double Vector2::Angle(Vector2 v1, Vector2 v2)
 {
+    if (!v1.Length() || !v2.Length()) return 0;
     double ang = acos(Scalar(v1, v2) / v1.Length() / v2.Length()) / M_PI * 180;
     return fmin(ang, 360 - ang);
 }
@@ -91,6 +103,7 @@ Vector2 Vector2::operator+(Vector2 otherVector)
 Vector2 &Vector2::operator++()
 {
     double len = Length();
+    if (!len) len = 1;
     x += x / len;
     y += y / len;
     return *this;
